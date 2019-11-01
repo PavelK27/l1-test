@@ -1,0 +1,22 @@
+{
+  "name": "homework_challenge",
+  "version": "1.0.0",
+  "description": "LoyaltyOne homework assignment",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PavelK27/homework_challenge.git"
+  },
+  "author": "PavelK27",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/PavelK27/homework_challenge/issues"
+  },
+  "homepage": "https://github.com/PavelK27/homework_challenge#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
