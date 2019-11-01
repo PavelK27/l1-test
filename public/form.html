@@ -1,0 +1,23 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>FORM</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="/static/main.css">
+</head>
+
+<body>
+    <div class="main">
+        <form class="main-form" name="main" type="post" action="/" id="main_form">
+            <input type="text" name="content" id="message" length="50" placeholder="Your message" />
+            <button type="submit">Done</button>
+        </form>
+        <div id="response" class="response-list">
+            <p>Your response will be here.</p>
+        </div>
+    </div>
+    <script src="/static/form.js"></script>
+</body>
+</html>
