@@ -20,6 +20,17 @@ describe('All API tests', () => {
       })
   })
 
+  describe('GET static assets', () => {
+      it('should return static assets for form', (done) => {
+        chai.request(server)
+            .get('/static/form.js')
+            .end((err, res) => {
+                  res.should.have.status(200)
+              done()
+            })
+      })
+  })
+
   describe('POST /', () => {
       it('Should return data that was sent.', (done) => {
         chai.request(server)
