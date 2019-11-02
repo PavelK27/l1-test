@@ -13,7 +13,8 @@ $(document).ready(function() {
         var formData = $(form).serialize();
         $.ajax({
             type: 'POST',
-            url: $(form).attr('action') + '?' + formData
+            url: $(form).attr('action'),
+            data: formData
         }).done(function(response) {
             $('#response').text(response);
             // Clear the form.

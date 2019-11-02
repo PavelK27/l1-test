@@ -34,8 +34,8 @@ describe('All API tests', () => {
   describe('POST /', () => {
       it('Should return data that was sent.', (done) => {
         chai.request(server)
-            .post('/?content=test123')
-            .send({})
+            .post('/')
+            .send({content: 'test123'})
             .end((err, res) => {
                   res.should.have.status(200)
                   res.text.should.be.a('string')
