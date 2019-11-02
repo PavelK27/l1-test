@@ -18,11 +18,12 @@
   },
   "homepage": "https://github.com/PavelK27/homework_challenge#readme",
   "dependencies": {
+    "chai": "*",
+    "chai-http": "*",
     "express": "^4.17.1",
     "express-formidable": "^1.2.0",
-    "nodemon": "^1.19.4",
-    "chai": "*",
     "mocha": "*",
-    "chai-http": "*"
+    "mongodb-tiny-helper": "^1.0.3",
+    "nodemon": "^1.19.4"
   }
 }
