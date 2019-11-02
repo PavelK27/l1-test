@@ -27,6 +27,7 @@ app.post('/', function (req, res) {
 
         let data = {
             text: req.fields.content,
+            name: sanitizeString(req.fields.name),
             date: Date.now()
         }
 
@@ -39,6 +40,38 @@ app.post('/', function (req, res) {
     } else {
         res.send('Missing content value!')
     }
+})
+
+app.get('/user', function (req, res) {
+    if (!req.query || !req.query.account) {
+        res.send('Missing account value!')
+    }
+
+    let data = {
+        query: { name: sanitizeString(req.query.account) },
+        sort: { date: -1 }
+    }
+
+    mh.find('messages', data, function(val) {
+        if (val && val.length > 0)
+            res.send(JSON.stringify(val))
+        else
+            res.send('error!')
+    })
+})
+
+app.get('/all', function (req, res) {
+    let data = {
+        query: {},
+        sort: { date: -1 }
+    }
+
+    mh.find('messages', data, function(val) {
+        if (val && val.length > 0)
+            res.send(JSON.stringify(val))
+        else
+            res.send('error!')
+    })
 })
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

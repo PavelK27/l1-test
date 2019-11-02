@@ -10,12 +10,22 @@
 
 <body>
     <div class="main">
+        <div class="post-placeholder hidden">
+            <span class="date"></span>
+            <span class="author"></span>
+            <p></p>
+        </div>
         <form class="main-form" name="main" type="post" action="/" id="main_form">
+            <input type="text" name="name" id="name" length="20" placeholder="Your name" /><br/>
             <input type="text" name="content" id="message" length="50" placeholder="Your message" />
             <button type="submit">Done</button>
         </form>
+
+        <h3>Your submissions:</h3>
+        <div id="submissions" class="user-subs"></div>
+
+        <h3>All other submissions:</h3>
         <div id="response" class="response-list">
-            <p>Your response will be here.</p>
         </div>
     </div>
     <script src="/static/form.js"></script>
