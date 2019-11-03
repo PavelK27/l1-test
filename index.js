@@ -1,5 +1,6 @@
 const express = require('express')
 const formidable = require('express-formidable')
+const path = require('path')
 
 const mh = require('mongodb-tiny-helper')(
     'mongodb+srv://'+
@@ -28,6 +29,7 @@ app.post('/', function (req, res) {
         let data = {
             text: req.fields.content,
             name: sanitizeString(req.fields.name),
+            city: sanitizeString(req.fields.city),
             date: Date.now(),
             parent: sanitizeString(req.fields.reply)
         }
@@ -88,6 +90,10 @@ app.get('/all', function (req, res) {
         }
     })
 })
+
+app.get('/form', function(req, res){
+    res.sendFile(path.join(__dirname+'/public/form.html'));
+});
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
 

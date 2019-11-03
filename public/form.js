@@ -22,10 +22,33 @@ $(document).ready(function() {
         );
     }
 
+    function getCityData(city, el) {
+        $.ajax({
+            type: 'GET',
+            url: 'https://api.openweathermap.org/data/2.5/weather?q='+
+            city+'&APPID=1109ce51799c8a79240bd0bab0e42b4a&units=metric'
+        }).done(function(res) {
+            var weather = '';
+            if (res.coord) {
+                weather += 'Coordinates: ' + res.coord.lat + ', ' + res.coord.lon;
+            }
+            if (res.main.temp) {
+                weather += ' Weather: ' + res.main.temp + 'C';
+            }
+
+            el.text(weather);
+            return true;
+        })
+    }
+
     function getPostTemplate(post, child = false) {
         var new_post = post_placeholder.clone();
         $(new_post).find('.date').text(new Date(post.date));
         $(new_post).find('.author').text(post.name);
+        if (post.city) {
+            $(new_post).find('.city').text(post.city);
+            getCityData(post.city, $(new_post).find('.city-data'));
+        }
         $(new_post).find('p').text(post.text);
         $(new_post).find('.post-reply').attr('data-parent-id',post._id).attr('data-parent-author',post.name);
         $(new_post).removeClass('hidden');
