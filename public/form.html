@@ -14,17 +14,21 @@
             <span class="date"></span>
             <span class="author"></span>
             <p></p>
+            <a href="#" class="post-reply">reply</a>
+            <div class="children"></div>
         </div>
         <form class="main-form" name="main" type="post" action="/" id="main_form">
             <input type="text" name="name" id="name" length="20" placeholder="Your name" /><br/>
-            <input type="text" name="content" id="message" length="50" placeholder="Your message" />
+            <input type="text" name="content" id="message" length="50" placeholder="Your message" /><br/>
+            <input type="hidden" name="reply" id="reply_id" /><br/>
+            <span class="reply-to"></span><br/>
             <button type="submit">Done</button>
         </form>
 
-        <h3>Your submissions:</h3>
+        <h3>Your last submissions:</h3>
         <div id="submissions" class="user-subs"></div>
 
-        <h3>All other submissions:</h3>
+        <h3>All submissions:</h3>
         <div id="response" class="response-list">
         </div>
     </div>

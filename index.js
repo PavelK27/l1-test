@@ -28,7 +28,8 @@ app.post('/', function (req, res) {
         let data = {
             text: req.fields.content,
             name: sanitizeString(req.fields.name),
-            date: Date.now()
+            date: Date.now(),
+            parent: sanitizeString(req.fields.reply)
         }
 
         mh.insertOne('messages', data, function(val) {
@@ -54,7 +55,7 @@ app.get('/user', function (req, res) {
 
     mh.find('messages', data, function(val) {
         if (val && val.length > 0)
-            res.send(JSON.stringify(val))
+            res.send(JSON.stringify(val.splice(0,5)))
         else
             res.send('error!')
     })
@@ -66,11 +67,25 @@ app.get('/all', function (req, res) {
         sort: { date: -1 }
     }
 
-    mh.find('messages', data, function(val) {
-        if (val && val.length > 0)
-            res.send(JSON.stringify(val))
-        else
+    mh.find('messages', data, function(posts) {
+        if (posts && posts.length > 0) {
+
+            for (var i = posts.length - 1; i >= 0; i--) {
+                if (posts[i].parent) {
+                    var current_post = posts[i]
+                    posts.splice(i, 1);
+
+                    var parent = posts.find(p => p._id == current_post.parent)
+                    if (!parent.children)
+                        parent.children = []
+                    parent.children.push(current_post)
+                }
+            }
+
+            res.send(JSON.stringify(posts))
+        } else {
             res.send('error!')
+        }
     })
 })
 

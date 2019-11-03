@@ -14,9 +14,19 @@
     padding: 10px;
 }
 
+.reply-to {
+    width: 100%;
+    display: block;
+    font-size: 12px;
+}
+
 .user-subs {
     border: 1px solid blue;
     padding: 15px;
+}
+
+.user-subs a {
+    display: none;
 }
 
 .response-list {
@@ -42,4 +52,9 @@
 
 .post-placeholder .author {
     font-weight: bold;
+}
+
+.children {
+    margin-left: 20px;
+    background-color: #eee;
 }

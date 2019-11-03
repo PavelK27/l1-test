@@ -4,12 +4,43 @@ $(document).ready(function() {
     var username = localStorage.getItem('name');
     var post_placeholder = $('.post-placeholder');
 
-    function getPostTemplate(post) {
+    function bindClickEvent() {
+        $('.post-reply').on('click',
+            function(e) {
+                e.preventDefault();
+
+                var id = $(this).attr('data-parent-id');
+                if ($(this).parent('.child').length != 0) {
+                    id = $(this).parents('.parent').find('.post-reply').attr('data-parent-id');
+                }
+                
+                var reply_to = $(this).attr('data-parent-author');
+                $("html, body").animate({ scrollTop: 0 }, "slow");
+                $('#reply_id').val(id);
+                $('.reply-to').text('Reply to: ' + reply_to);
+            }
+        );
+    }
+
+    function getPostTemplate(post, child = false) {
         var new_post = post_placeholder.clone();
         $(new_post).find('.date').text(new Date(post.date));
         $(new_post).find('.author').text(post.name);
         $(new_post).find('p').text(post.text);
+        $(new_post).find('.post-reply').attr('data-parent-id',post._id).attr('data-parent-author',post.name);
         $(new_post).removeClass('hidden');
+
+        if (child) {
+            $(new_post).addClass('child');
+        }
+
+        // Load child posts.
+        if (post.children) {
+            $(new_post).addClass('parent');
+            for (var i = post.children.length - 1; i >= 0; i--) {
+                $(new_post).find('.children:first').append(getPostTemplate(post.children[i], true));
+            }
+        }
         return new_post;
     }
 
@@ -45,7 +76,9 @@ $(document).ready(function() {
                 var new_post = getPostTemplate(val);
                 $('#response').append(new_post);
             });
+            bindClickEvent();
         })
+
     }
 
     loadSubmissions();
@@ -67,7 +100,8 @@ $(document).ready(function() {
             url: $(form).attr('action'),
             data: formData
         }).done(function(response) {
-            loadSubmissions()
+            loadSubmissions();
+            bindClickEvent();
 
             // Clear the form.
             $('#message').val('');
