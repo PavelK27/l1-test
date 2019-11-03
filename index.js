@@ -1,6 +1,8 @@
 const express = require('express')
 const formidable = require('express-formidable')
 const path = require('path')
+const https = require('https')
+const fs = require('fs')
 
 const mh = require('mongodb-tiny-helper')(
     'mongodb+srv://'+
@@ -95,6 +97,9 @@ app.get('/form', function(req, res){
     res.sendFile(path.join(__dirname+'/public/form.html'));
 });
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+https.createServer({
+  key: fs.readFileSync('server.key'),
+  cert: fs.readFileSync('server.cert')
+}, app).listen(port, () => console.log(`Example app listening on port ${port}!`))
 
 module.exports = app
